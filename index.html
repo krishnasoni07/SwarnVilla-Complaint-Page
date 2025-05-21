@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web-to-Case Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f8f8f8;
+    }
+    form {
+      background-color: #fff;
+      padding: 20px;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    input[type="submit"] {
+      margin-top: 20px;
+      background-color: #0070d2;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background-color: #005bb5;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Submit a Case</h2>
+
+  <form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DgK000003Zy1B" method="POST">
+
+    <!-- Salesforce Org ID -->
+    <input type="hidden" name="orgid" value="00DgK000003Zy1B">
+    <input type="hidden" name="retURL" value="http://gmail.com">
+
+    <!-- Optional Debugging -->
+    <!-- <input type="hidden" name="debug" value="1">
+    <input type="hidden" name="debugEmail" value="youremail@example.com"> -->
+
+    <!-- Standard Fields -->
+    <label for="name">Contact Name</label>
+    <input id="name" maxlength="80" name="name" size="20" type="text" required>
+
+    <label for="email">Email</label>
+    <input id="email" maxlength="80" name="email" size="20" type="email" required>
+
+    <label for="phone">Phone</label>
+    <input id="phone" maxlength="40" name="phone" size="20" type="tel">
+
+    <label for="subject">Subject</label>
+    <input id="subject" maxlength="80" name="subject" size="20" type="text" required>
+
+    <label for="description">Description</label>
+    <textarea name="description" rows="4" required></textarea>
+
+    <!-- Custom Booking Lookup Field -->
+    <input type="hidden" name="00NgK000011OlRJ" id="bookingField">
+
+    <!-- Optional: Display booking ID in a read-only field -->
+    <label for="bookingDisplay">Booking ID (Auto-Filled)</label>
+    <input type="text" id="bookingDisplay" disabled>
+
+    <!-- Submit Button -->
+    <input type="submit" name="submit" value="Submit Case">
+
+  </form>
+
+  <!-- JavaScript to autofill Booking ID -->
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const bookingId = params.get("booking_id"); // expected: a0B...
+
+    if (bookingId) {
+      document.getElementById("bookingField").value = bookingId;
+      document.getElementById("bookingDisplay").value = bookingId;
+    }
+  </script>
+
+</body>
+</html>
