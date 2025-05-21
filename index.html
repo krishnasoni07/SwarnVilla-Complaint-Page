@@ -45,54 +45,55 @@
 
   <h2>Submit a Case</h2>
 
-  <form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DgK000003Zy1B" method="POST">
+<!-- META tag -->
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
 
-    <!-- Salesforce Org ID -->
-    <input type="hidden" name="orgid" value="00DgK000003Zy1B">
-    <input type="hidden" name="retURL" value="http://gmail.com">
+<!-- Web-to-Case Form -->
+<form action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00DgK000003Zy1B" method="POST">
 
-    <!-- Optional Debugging -->
-    <!-- <input type="hidden" name="debug" value="1">
-    <input type="hidden" name="debugEmail" value="youremail@example.com"> -->
+  <!-- Org ID and return URL -->
+  <input type="hidden" name="orgid" value="00DgK000003Zy1B">
+  <input type="hidden" name="retURL" value="https://krishnasoni07.github.io/SwarnVilla-Complaint-Page/thankyou.html">
 
-    <!-- Standard Fields -->
-    <label for="name">Contact Name</label>
-    <input id="name" maxlength="80" name="name" size="20" type="text" required>
+  <!-- Debug (Optional) -->
+  <!--
+  <input type="hidden" name="debug" value="1">
+  <input type="hidden" name="debugEmail" value="your-email@example.com">
+  -->
 
-    <label for="email">Email</label>
-    <input id="email" maxlength="80" name="email" size="20" type="email" required>
+  <!-- Contact Info -->
+  <label for="name">Contact Name</label>
+  <input id="name" maxlength="80" name="name" size="20" type="text" /><br>
 
-    <label for="phone">Phone</label>
-    <input id="phone" maxlength="40" name="phone" size="20" type="tel">
+  <label for="email">Email</label>
+  <input id="email" maxlength="80" name="email" size="20" type="text" /><br>
 
-    <label for="subject">Subject</label>
-    <input id="subject" maxlength="80" name="subject" size="20" type="text" required>
+  <label for="phone">Phone</label>
+  <input id="phone" maxlength="40" name="phone" size="20" type="text" /><br>
 
-    <label for="description">Description</label>
-    <textarea name="description" rows="4" required></textarea>
+  <label for="subject">Subject</label>
+  <input id="subject" maxlength="80" name="subject" size="20" type="text" /><br>
 
-    <!-- Custom Booking Lookup Field -->
-    <input type="hidden" name="00NgK000011OlRJ" id="bookingField">
+  <label for="description">Description</label>
+  <textarea name="description"></textarea><br>
 
-    <!-- Optional: Display booking ID in a read-only field -->
-    <label for="bookingDisplay">Booking ID (Auto-Filled)</label>
-    <input type="text" id="bookingDisplay" disabled>
+  <!-- Booking Lookup Field: Hidden but Auto-Populated from URL -->
+  <input type="hidden" name="00NgK000011OlRJ" id="bookingField" />
 
-    <!-- Submit Button -->
-    <input type="submit" name="submit" value="Submit Case">
+  <!-- Submit -->
+  <input type="submit" value="Submit Case">
 
-  </form>
+</form>
 
-  <!-- JavaScript to autofill Booking ID -->
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const bookingId = params.get("booking_id"); // expected: a0B...
+<!-- JavaScript to Read booking_id from URL -->
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const bookingId = urlParams.get("booking_id");
+  if (bookingId) {
+    document.getElementById("bookingField").value = bookingId;
+  }
+</script>
 
-    if (bookingId) {
-      document.getElementById("bookingField").value = bookingId;
-      document.getElementById("bookingDisplay").value = bookingId;
-    }
-  </script>
 
 </body>
 </html>
